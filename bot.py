@@ -14,9 +14,9 @@ secret = os.getenv('auth')
 TOKEN = secret
 
 # fetches the token from the .env
-
 # 2
-bot = commands.Bot(command_prefix='-')
+
+bot = commands.Bot(command_prefix=['Dennis ', 'dennis '])
 # bot prefix
 @bot.event
 async def on_ready():
