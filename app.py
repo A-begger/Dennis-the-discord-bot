@@ -26,4 +26,5 @@ response = (openai.Completion.create(
 ))
 text = str(response.choices)
 text = text.split("\n")[4]
+text = (text[13:])
 print(text)
