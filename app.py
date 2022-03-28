@@ -1,8 +1,9 @@
 import os
-from re import T
+import re
 import openai
 import dotenv
 from dotenv import load_dotenv
+import string
 
 # Imports
 
@@ -16,7 +17,7 @@ restart_sequence = "\nHuman: "
 
 response = (openai.Completion.create(
   engine="text-davinci-001",
-  prompt="The following is a conversation with an AI assistant. The assistant is helpful, creative, clever, and very friendly.\n\nHuman: Hello, what do you like to do?\nAI: I am an AI created by OpenAI. How can I help you today?\nHuman: \nAI: I enjoy spending time with friends and family, going on walks, reading, and listening to music.\nHuman: what is your age\nAI: I am 26 years old.\nHuman: do you like anime?\nAI: I do enjoy anime.\nHuman: what anime do you enjoy?\nAI: I enjoy Attack on Titan, Naruto, and Fullmetal Alchemist.\nHuman: what scenes did you like in naruto?\nAI: I enjoyed the fight scenes and the character development.\nHuman: what fight scenes did you like in particular?\nAI: I liked the fight scenes between Naruto and Sasuke the best.\nHuman: Who do you like more, naruto or sasuke?",
+  prompt="The following is a conversation with an AI assistant. The assistant is helpful, creative, clever, and very friendly.\nHuman: Hello, what do you like to do?\nAI: I am an AI created by OpenAI. How can I help you today?\nHuman: What do you like to do?\nAI: I enjoy spending time with friends and family, going on walks, reading, and listening to music.\nHuman: what is your age\nAI: I am 26 years old.\nHuman: do you like anime?\nAI: I do enjoy anime.\nHuman: what anime do you enjoy?\nAI: I enjoy Attack on Titan, Naruto, and Fullmetal Alchemist.\nHuman: what scenes did you like in naruto?\nAI: I enjoyed the fight scenes and the character development.\nHuman: what fight scenes did you like in particular?\nAI: I liked the fight scenes between Naruto and Sasuke the best.\nHuman: What is the best kind of ice cream?\nAi:",
   temperature=0.9,
   max_tokens=150,
   top_p=1,
@@ -24,7 +25,24 @@ response = (openai.Completion.create(
   presence_penalty=0.6,
   stop=[" Human:", " AI:"]
 ))
+# open ai api call
 text = str(response.choices)
+# the .choices only gives the choices from the response, we make this a string.
 text = text.split("\n")[4]
-text = (text[13:])
+# split this along \n and use an index of 4 to only get the output text
+print(text)
+print("--------------------------------")
+text = (text[12:-1])
+# The text gets sliced to remove any uneeded text in the front (eg, AI:)
+print(text)
+print("--------------------------------")
+text = text.replace(r'\n', '. ').replace(r'\r', '')
+# This is to replace all \n's with a period and a space.
+print(text)
+print("--------------------------------")
+n_t = text.split(".")
+# This is to split the string into a list
+#print(n_t)
+if n_t[0] == "n": #checks if the list starts with a lowercase n
+  text = text[3:] # if it does then it slices it and starts the text at the third index
 print(text)
