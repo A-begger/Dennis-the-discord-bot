@@ -22,7 +22,7 @@ file = open(r"mrq.txt","r")
 mrq = file.read()
 mrq = mrq.split("\n")
 file.close()
-
+# opens the mrq.txt, then reads it and splits it. CLoses at the end so it can be opened later
 response = (openai.Completion.create(
   engine="text-davinci-001",
   prompt= personality +mrq[0] +question+ "\nAi:",  #take Human: at the end of the personality out, then get the mrq and add in in. Then add a "Human: " before the question
@@ -61,12 +61,7 @@ mrq = "Human: "+question+" "+"Ai: "+text #probably add \n before Human: and Ai:
 #print(mrq)
 print("--------------------------------")
 f = open(r"mrq.txt","w")
-
+# opens the mrq in write mode
 mrq = f.write(str(mrq))
 f.close()
-"""
-f = open(r"mrq.txt","r")
-data = f.read()
-data = data.split("\n")
-print(data[0])
-"""
+# writes the new mrq to the mrq.txt and closes it

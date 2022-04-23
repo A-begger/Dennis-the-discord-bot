@@ -59,6 +59,7 @@ async def on_message(msg):
         mrq = file.read()
         mrq = mrq.split("\n")
         file.close()
+        # Opens the mrq.txt in read mode and reads it to allow the bot to access the text in there.
         question = question[6:]
         response = (openai.Completion.create(
             engine="text-davinci-001",
@@ -84,10 +85,12 @@ async def on_message(msg):
         if n_t[0] == "n": #checks if the list starts with a lowercase n
             text = text[3:] # if it does then it slices it and starts the text at the third index
         await msg.channel.send(text)
+        
         mrq = "Human: "+question+" "+"Ai: "+text #probably add \n before Human: and Ai:
         f = open(r"mrq.txt","w")
         mrq = f.write(str(mrq))
         f.close()
+        #opens the mrq.txt in write mode and writes the mrq to it.
 
 bot.run(TOKEN)
 # runs the bot with the token
