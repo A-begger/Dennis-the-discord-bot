@@ -53,7 +53,7 @@ async def on_message(msg):
         # Opens the mrq.txt in read mode and reads it to allow the bot to access the text in there.
         question = question[6:]
         response = (openai.Completion.create(
-            engine="text-davinci-001",
+            engine="text-curie-001",
             prompt= personality + mrq[0] + question + "\nAi:",
             temperature=0.9,
             max_tokens=150,
