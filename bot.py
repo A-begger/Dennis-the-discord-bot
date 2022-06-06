@@ -28,6 +28,7 @@ async def on_ready():
 @bot.command(name='ping') #ping pong
 async def pong(ctx):
     response = "Pong"
+    print("trying rn")
     await ctx.send(response)
 
 
@@ -37,7 +38,7 @@ personality = "The following is a conversation with an AI assistant. The assista
 async def on_message(msg):
     print(msg.content)
     if '!chat' in msg.content:
-        print('working over here!')
+        print('---chat---')
         openai.api_key_path = '/home/endeavour/Github/Dennis-the-discord-bot/openai.env'
         api_key = os.getenv('key')
         openai.api_key =api_key
@@ -82,6 +83,23 @@ async def on_message(msg):
         mrq = f.write(str(mrq))
         f.close()
         #opens the mrq.txt in write mode and writes the mrq to it.
+    elif '!clear' in msg.content:
+        file = open(r"mrq.txt","w+")
+        mrq = file.write("")
+        file.close()
+        print("---clear---")
+        await msg.channel.send("Cleared")
+    elif '!ping' in msg.content:
+        response = "Pong"
+        print("---ping---")
+        await msg.channel.send(response)
+
+@bot.command(name='clear')
+async def clear(ctx):
+  file = open(r"mrq.txt","w+")
+  mrq = file.write("")
+  file.close()
+  await ctx.send("Cleared")
 
 bot.run(TOKEN)
 # runs the bot with the token
