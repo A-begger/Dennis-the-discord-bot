@@ -39,7 +39,7 @@ async def on_message(msg):
     print(msg.content)
     if '!chat' in msg.content:
         print('---chat---')
-        openai.api_key_path = '/home/endeavour/Github/Dennis-the-discord-bot/openai.env'
+        openai.api_key_path = 'openai.env'
         api_key = os.getenv('key')
         openai.api_key =api_key
         #api key
